@@ -11,8 +11,10 @@ router.route('/client')
 
 router.route('/cars')
 .post(carController.addCar)
-.get(carController.allCars)
 .put(carController.deleteCar)
+
+router.route('/cars/:id')
+.get(carController.allCars)
 
 router.route('/repair')
 .post(repairController.addRepair)

@@ -1,6 +1,6 @@
 # Reanswer
 
-## hallenge para el cliente "El Gran Calibre"
+## Challenge para el cliente "El Gran Calibre"
 
 
 **Esta con el Stack de MERN**

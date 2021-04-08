@@ -2,8 +2,9 @@ const Car = require('../models/Car')
 
 const carController = {
     addCar : async ( req, res) => {
-        const { model, patent, clientId } = req.body
-        const carAdd = new Car({ model, patent, clientId})
+        const { model, patent, color, clientId } = req.body
+        console.log(req.body)
+        const carAdd = new Car({ model, patent, color, clientId })
         carAdd.save()
         .then(async carAdd=> {
             const car = await carAdd.populate('clientId').execPopulate()
@@ -14,14 +15,15 @@ const carController = {
         })
     },
     allCars: (req, res) => {
-        Car.find()
-        .then(data => {
-          return res.json({success: true, respuesta: data})
+        const {id} = req.params
+        Car.find({ clientId: id }).exec()
+        .then(response => {
+          return res.json({success: true, response})
         })
         .catch(error => {
           return res.json({success: false, error: error})
         })
-    },
+      },
     deleteCar: (req, res) => {
         const { id } = req.body
         Car.findByIdAndDelete({"_id": id})

@@ -3,11 +3,22 @@ const Car = require('../models/Car')
 const repairController = {
     addRepair: (req, res) => {
       const { id, description } = req.body
+      console.log(req.body)
       Car.findOneAndUpdate({ _id: id},
         { $addToSet: { repair: { description: description }}},
         { new:true })
       .then(response => res.json({success: true, response }))
       .catch(error => res.json({success: false, error }))
+    },
+    allRepairs: (req, res) => {
+        const {id} = req.params
+        Car.find({ clientId: id }).exec()
+        .then(data => {
+          return res.json({success: true, respuesta: data})
+        })
+        .catch(error => {
+          return res.json({success: false, error: error})
+        })
     },
     deleteRepair: (req, res) => {
         const {id, idRepair} = req.body
